@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head> 
+  <script src="\jquery.min.js"></script>
+  <script src="\d3-gauge.js"></script>
+  <link rel="stylesheet" href="\style.css">
+
+<body>
+<span class="title">PlantIno v2.4</span>
+<div class="maincontainer">
+<div class="main">
+
+<div class="firstrow" id="Row1">
+
+	<div id="card">
+	<br>
+	<div class="settings">
+		<div class="checkConfig">
+		Upload ON
+		<input  class="checkb" type="checkbox" checked id="Check1" onclick="setUpload()"></input><br>
+		Device ON
+		<input  class="checkb" type="checkbox" id="Check2" onclick="setDevice()"></input><br>
+		</div>
+		<div class="uploadConfig">
+		Upload Time
+		<input  class="uploadTime" type="number" id="uploadTime" min="1500" max="900000"></input>
+		<input  class="uploadButton" type="button" id="uploadButton" value="set" onclick="setUploadTime()"></input></br>
+		</div>
+		<div class="moistureLimConfig">
+		Moisture Limit
+		<input  class="moistureLim" type="number" id="moistureLim" min="100" max="1023"></input>
+		<input  class="uploadButton" type="button" id="uploadButton" value="set" onclick="setMoistureLim()"></input>
+		</div>
+		<div class="pumpTimeConfig">
+		Pump Timer
+		<input  class="pumpTime" type="number" id="pumpTime" min="1000" max="20000"></input>
+		<input  class="uploadButton" type="button" id="uploadButton" value="set" onclick="setPumpTime()"></input>
+		</div></br>
+		<div class="waterConfig">
+		<input  class="uploadButton" type="button" id="uploadButton" value="Water Now" onclick="waterNow()"></input>
+		</div>
+	</div>
+	<div class="sensors">
+		Uploading Data : <span id="upload">-</span><br>
+		Device State is : <span id="deviceState1">-</span><br>
+		Upload timer is : <span id="timerState">-</span> ms<br>
+		Moisture Limit  : <span id="moistureState">-</span><br>
+		Pump timer is : <span id="pumpTimeState">-</span><br>
+		Moisture is now : <span id="moisture">-</span><br>
+		Pump is now : <span id="pump">-</span><br>
+		Temperature is : <span id="temperature">-</span> c<br>
+		Humidity is : <span id="humidity">-</span> %<br>
+		Day is : <span id="light">-</span><br>
+	</div>
+	</div>
+
+	<div id="gaugeBox">
+	</div>
+  
+
+</div>
+</div> <!--End Main Div -->
+</div>
+
+<div class="row" id="Row2">
+  <div class="column">
+	
+	<div class="thingspeak">
+		<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/466445/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+	</div>
+	
+	</div>
+  
+  <div class="column">
+
+		<div class="thingspeak">
+		<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/466445/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+
+	</div>
+  
+  </div>
+  <div class="column">
+
+	<div class="thingspeak">
+		<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/466445/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+		
+
+		</div>
+  
+  </div>
+</div>
+
+<div class="row" id="Row3">
+  <div class="column">
+	
+	<div class="thingspeak">
+		<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/466445/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line"></iframe>
+
+		</div>
+	
+  </div>
+  
+  <div class="column">
+
+		<div class="thingspeak">
+		<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/466445/charts/5?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+
+		</div>
+  
+  </div>
+  <div class="column">
+
+	<div class="thingspeak">
+		<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/apps/matlab_visualizations/221918"></iframe>
+
+
+		</div>
+  
+  </div>
+</div>
+
+<div class="row" id="Row4">
+  <div class="column">
+	
+	<div class="thingspeak">
+		<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/apps/matlab_visualizations/221922"></iframe>
+
+
+		</div>
+	
+  </div>
+  
+  <div class="column">
+
+		<div class="thingspeak">
+		<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/apps/matlab_visualizations/299930"></iframe>
+
+
+
+		</div>
+  
+  </div>
+  <div class="column">
+		<div class="thingspeak">
+		<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/apps/matlab_visualizations/221912"></iframe>
+
+
+
+
+		</div>
+	
+  
+  </div>
+</div>
+
+
+<div class="thinglink">
+	<a href="https://thingspeak.com/channels/466445" target="new">Open ThingSpeak page</a>
+</div>
+<div class="thinglink">
+	<a href="http://develop.lab4d.com/plantIno3D" target="new">Open 3D Visualization</a>
+</div>
+
+<script>
+
+	function updateGauge () {
+		gauges.forEach(function (gauge) {			
+		console.log(moist)
+		gauge.write(moist/10);
+		}); 
+	}
+	
+	var moist =42;
+	var gauges = [];
+	var small =  {
+      size :  100
+    , min  :  0
+    , max  :  100 
+    , transitionDuration : 500
+
+    , label                      :  'label.text'
+    , minorTicks                 :  4
+    , majorTicks                 :  5
+    , needleWidthRatio           :  0.6
+    , needleContainerRadiusRatio :  0.7
+
+    , zones: [
+        { clazz: 'green-zone', from: 0.6, to: 0.84 }
+      , { clazz: 'blue-zone', from: 0.84, to: 1.0 }
+      ]
+	};
+
+	function createGauge (opts) {
+		var el = document.createElement('div');
+		el.setAttribute('class', 'gauge-container');
+		document.getElementById("gaugeBox").appendChild(el);
+		var g = d3Gauge(el, opts);
+		g.currentValue = g._range / 2;
+		gauges.push(g);
+	}
+
+	createGauge({ clazz: 'simple', label:  'Moisture' });
+	
+</script>
+
+<script>
+
+function getDevice() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("deviceState1").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET", "readDevice", true);
+  xhttp.send();
+}
+
+function setUpload() {
+  var xhttp = new XMLHttpRequest();
+  //xhttp.onreadystatechange = function() {
+  var checkBox = document.getElementById("Check1");
+  var text = document.getElementById("upload");
+  if (checkBox.checked == true){
+    text.style.color = "#fff";
+    xhttp.open("GET", "setUpload?upload=1", true);
+  } 
+  else {
+    text.style.color = "#000";
+    xhttp.open("GET", "setUpload?upload=0", true);
+  }
+  //};
+  xhttp.send();
+}
+
+function setUploadTime() {
+	var xhttp = new XMLHttpRequest();
+	var text = document.getElementById("uploadTime").value;
+
+		xhttp.open("GET", "setUploadTime?uploadTime="+text, true);
+		xhttp.send();
+
+}
+function waterNow() {
+	var xhttp = new XMLHttpRequest();
+		xhttp.open("GET", "waterPlant", true);
+		xhttp.send();
+
+}
+
+
+function setMoistureLim() {
+	var xhttp = new XMLHttpRequest();
+	var text = document.getElementById("moistureLim").value;
+
+		xhttp.open("GET", "setMoistureLim?moistureLim="+text, true);
+		xhttp.send();
+
+}
+function setPumpTime() {
+	var xhttp = new XMLHttpRequest();
+	var text = document.getElementById("pumpTime").value;
+
+		xhttp.open("GET", "setPumpTime?pumpTime="+text, true);
+		xhttp.send();
+
+}
+
+function setDevice() {
+  var xhttp = new XMLHttpRequest();
+  var checkBox = document.getElementById("Check2");
+  var text = document.getElementById("deviceState1");
+  if (checkBox.checked == true){
+    text.style.color = "#fff";
+    xhttp.open("GET", "setDevice?deviceState1=1", true);
+  } 
+  else {
+    text.style.color = "#000";
+    xhttp.open("GET", "setDevice?deviceState1=0", true);
+  }
+  xhttp.send();
+}
+
+setInterval(function() {
+  // Call a function repeatedly with interval
+  getUpload();
+  getDevice();
+  getUploadTime();
+  getMoistureLim();
+  getPumpTime();
+  getTemp();
+  getHum();
+  getLight();
+  getMoisture();
+  getPump();
+  updateGauge();
+}, 2000); //2000mSeconds update rate
+
+function getUpload() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("upload").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET", "readUpload", true);
+  xhttp.send();
+}
+
+function getUploadTime() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("timerState").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET", "readUploadTime", true);
+  xhttp.send();
+}
+function getPumpTime() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("pumpTimeState").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET", "readPumpTime", true);
+  xhttp.send();
+}
+function getMoistureLim() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("moistureState").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET", "readMoistureLim", true);
+    xhttp.send();
+}
+
+function getTemp() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("temperature").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET", "readTemp", true);
+  xhttp.send();
+}
+function getHum() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("humidity").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET", "readHum", true);
+  xhttp.send();
+}
+function getLight() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("light").innerHTML =
+      this.responseText;
+    }
+};
+  xhttp.open("GET", "readLight", true);
+  xhttp.send();
+}
+function getPump() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("pump").innerHTML =
+      this.responseText;
+    }
+};
+  xhttp.open("GET", "readPump", true);
+  xhttp.send();
+}
+function getMoisture() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+	  moist=this.responseText;
+      document.getElementById("moisture").innerHTML =
+      this.responseText;
+	  
+    }
+};
+  xhttp.open("GET", "readMoisture", true);
+  xhttp.send();
+}
+</script>
+
+
+
+
+<br><br>
+</body>
+</html>

@@ -1,0 +1,253 @@
+.column {
+  float: left;
+  width: 33.33%;
+  text-align: center;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.row {
+
+    display: -webkit-box;
+	background-color: darkslategrey;
+}
+.firstrow {
+
+    display: -webkit-inline-box;
+	background-color: darkslategrey;
+	height: 333px;
+}
+.firstrow:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+#card{
+  min-width: 500px;
+  min-height: 250px;
+  background: #02b875;
+  padding: 30px;
+  box-sizing: border-box;
+  color: #FFF;
+  margin: 40px;
+  box-shadow: 0px 2px 18px -4px rgba(0,0,0,0.75);
+  display: -webkit-box;
+}
+.main{
+  /*max-width: 400px;*/
+  text-align: center;
+
+}
+.title{
+  width: 100%;
+  text-align: center;
+  display: inline-block;
+  font-size: 21px;
+  font-weight: 600;
+  margin-top: 20px;
+  background-color: darkslategrey;
+  color:#fff;
+  padding: 20px 0px;
+}
+.thinglink{
+	margin:20px;
+}
+}
+.settings{
+  min-width:20px;
+  right:0px;
+}
+
+.uploadTime{
+	width: 70px;
+}
+.moistureLim{
+	width: 70px;
+}
+.pumpTime{
+	width: 70px;
+}
+.uploadConfig{
+	text-align: right;
+}
+.checkConfig{
+	text-align: right;
+}
+.pumpTimeConfig{
+	text-align: right;	
+}
+
+.checkb{
+	background:#fff;
+}
+.sensors{
+	margin-left:20px;
+	text-align: left;
+	line-height: 21px;
+}
+.maincontainer{
+	text-align:center;
+}
+.thingspeak{
+	margin: 20px 10px 20px 10px;
+}
+
+#gaugeBox {
+	text-align: center;
+	margin: 40px;
+	box-shadow: 0px 2px 18px -4px rgba(0,0,0,0.75);
+}
+.gauge-container {
+	display: inline-block;
+	background: #02b875;
+}
+
+.d3-gauge {
+ /* float: left;*/
+}
+
+/* Simple */
+.d3-gauge.simple .outer-circle {
+  fill         :  #ccc;
+  stroke       :  #000;
+  stroke-width :  0.5px;
+}
+
+.d3-gauge.simple .inner-circle {
+  fill         :  #fff;
+  stroke       :  #E0E0E0;
+  stroke-width :  2px;
+}
+
+.d3-gauge.simple .label {
+  fill      :  #333;
+  font-size :  16px;
+}
+
+.d3-gauge.simple .labelc {
+  fill      :  #FFB533;
+  font-size :  10px;
+}
+
+.d3-gauge.simple .major-tick {
+  stroke       :  #333;
+  stroke-width :  2px;
+}
+
+.d3-gauge.simple .minor-tick {
+  stroke       :  #666;
+  stroke-width :  1px;
+}
+
+.d3-gauge.simple .major-tick-label {
+  fill         :  darkblue;
+  stroke-width :  2px;
+  font-size    :  15px;
+}
+
+.d3-gauge.simple .needle {
+  fill         :  #CBFF2E;
+  stroke       :  #c63310;
+  fill-opacity :  0.7;
+}
+
+.d3-gauge.simple .needle-container {
+  fill         :  #4684EE;
+  stroke       :  #666;
+  fill-opacity :  1;
+}
+
+.d3-gauge.simple .current-value {
+    fill: #76E8E1;
+    stroke-width: 0px;
+    font-size: 27px;
+    font-weight: 600;
+}
+
+.d3-gauge.simple .green-zone {
+  fill :  #CBFF2E
+}
+.d3-gauge.simple .blue-zone {
+  fill :  #76E8E1
+}
+
+.d3-gauge.simple .yellow-zone {
+  fill :  #FF9900
+}
+
+.d3-gauge.simple .red-zone {
+  fill :  #DC3912
+}
+
+/* GrayScale */
+
+.d3-gauge.grayscale .outer-circle {
+  fill         :  #00A8A9;
+  stroke       :  #000;
+  stroke-width :  0.5px;
+}
+
+.d3-gauge.grayscale .inner-circle {
+  fill         :  #111;
+  stroke       :  #E0E0E0;
+  stroke-width :  2px;
+}
+
+.d3-gauge.grayscale .label {
+  fill      :  #ff9102;
+  font-size :  24px;
+}
+
+.d3-gauge.grayscale .labelc {
+  fill      :  #fff;
+  font-size :  10px;
+}
+
+.d3-gauge.grayscale .major-tick {
+  stroke       :  #888;
+  stroke-width :  2px;
+}
+
+.d3-gauge.grayscale .minor-tick {
+  stroke       :  #777;
+  stroke-width :  1px;
+}
+
+.d3-gauge.grayscale .major-tick-label {
+  fill         :  #ddd;
+  stroke-width :  2px;
+  font-size    :  15px;
+}
+
+.d3-gauge.grayscale .needle {
+  fill         :  #ff9102;
+  stroke       :  #555;
+  fill-opacity :  0.7;
+}
+
+.d3-gauge.grayscale .needle-container {
+  fill         :  #444;
+  stroke       :  #666;
+  fill-opacity :  1;
+}
+
+.d3-gauge.grayscale .current-value {
+  fill         :  #fff;
+  stroke-width :  0px;
+}
+
+.d3-gauge.grayscale .green-zone {
+  fill :  #ddd;
+}
+
+.d3-gauge.grayscale .yellow-zone {
+  fill :  #888
+}
+
+.d3-gauge.grayscale .red-zone {
+  fill :  #666
+}
